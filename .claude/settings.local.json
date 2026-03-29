@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -v \"Library\\\\|\\\\.meta$\")",
+      "Bash(git config:*)"
+    ]
+  }
+}
