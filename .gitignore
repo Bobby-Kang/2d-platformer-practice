@@ -1,3 +1,12 @@
+# MCP for Unity
+Assets/MCPForUnity/
+Assets/MCPForUnity.meta
+.claude/
+
+# Packages (MCP modified)
+Packages/manifest.json
+Packages/packages-lock.json
+
 # Unity generated
 Library/
 Temp/
