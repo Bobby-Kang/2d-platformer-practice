@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     private float horizontalInput;
     private bool isGrounded;
 
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();  // 추가
     }
 
     void Update()
@@ -35,14 +37,20 @@ public class PlayerMovement : MonoBehaviour
             horizontalInput = -1f;
 
         // 점프
-        if ((Keyboard.current.spaceKey.wasPressedThisFrame) && isGrounded)
+        if ((Keyboard.current.spaceKey.wasPressedThisFrame || Keyboard.current.upArrowKey.wasPressedThisFrame || Keyboard.current.wKey.wasPressedThisFrame) && isGrounded)
+        {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            animator.SetTrigger("Jump");
+        }
 
         // 방향에 따라 스프라이트 좌우 반전
         if (horizontalInput > 0)
             spriteRenderer.flipX = false;
         else if (horizontalInput < 0)
             spriteRenderer.flipX = true;
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
+        animator.SetBool("IsGrounded", isGrounded);     
     }
 
     void FixedUpdate()
